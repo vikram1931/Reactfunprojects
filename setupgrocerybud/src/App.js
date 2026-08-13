@@ -21,6 +21,20 @@ function App() {
       showAlert(true, "danger", "please enter value");
     } else if (name && isEditing) {
       //deal with edit
+
+      setList(
+        list.map((item) => {
+          if (item.id === editID) {
+            return { ...item, title: name };
+          }
+          return item;
+        }),
+      );
+
+      setName("");
+      setEditID(null);
+      setIsEditing(false);
+      showAlert(true, "success", "value changed");
     } else {
       // show alert
       showAlert(true, "success", "item added to the list");
@@ -41,8 +55,18 @@ function App() {
   };
   const removeItem = (id) => {
     showAlert("true", "danger", "item removed");
-    setList(list.filter((item) => item.id !== id));
+    setList(list.filter((item) => item.id !== id)); // here we are returning id's that do not match the id
   };
+
+  const editItem = (id) => {
+    // here we will get the id that match
+
+    const specificItem = list.find((item) => item.id === id);
+    setIsEditing(true);
+    setEditID(id);
+    setName(specificItem.title); // here the edit item when clicked on edit, the same name is shown on input box
+  };
+
   return (
     <section className="section-center">
       <form className="grocery-form" onSubmit={handleSubmit}>
@@ -63,7 +87,7 @@ function App() {
       </form>
       {list.length > 0 && (
         <div className="grocery-container">
-          <List items={list} removeItem={removeItem} />
+          <List items={list} removeItem={removeItem} editItem={editItem} />
           <button type="button" className="clear-btn" onClick={clearList}>
             clear items
           </button>
