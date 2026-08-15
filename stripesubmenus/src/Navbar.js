@@ -3,7 +3,7 @@ import logo from "./images/logo.svg";
 import { FaBars } from "react-icons/fa";
 import { useGlobalContext } from "./context";
 const Navbar = () => {
-  const [openSidebar, openSubmenu, closeSubmenu] = useGlobalContext();
+  const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
   return (
     <nav className="nav">
       <div className="nav-center">
@@ -12,10 +12,31 @@ const Navbar = () => {
           <button
             type="button"
             className="btn toggle-btn"
-            onClick={openSidebar}></button>
+            onClick={openSidebar}>
+            <FaBars />
+          </button>
         </div>
       </div>
-      <ul className="nav-links"></ul>
+      <ul className="nav-links">
+        <li>
+          <button type="button" className="link-btn">
+            products
+          </button>
+        </li>
+        <li>
+          <button type="button" className="link-btn">
+            developers
+          </button>
+        </li>
+        <li>
+          <button type="button" className="link-btn">
+            company
+          </button>
+        </li>
+      </ul>
+      <button type="button" className="btn signin-btn">
+        sign in
+      </button>
     </nav>
   );
 };
