@@ -16,10 +16,15 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const clearCart = () => {
+    dispatch({ type: "CLEAR_CART" });
+  };
+
   return (
     <AppContext.Provider
       value={{
         ...state,
+        clearCart,
       }}>
       {children}
     </AppContext.Provider>
@@ -31,3 +36,14 @@ export const useGlobalContext = () => {
 };
 
 export { AppContext, AppProvider };
+
+// for the first dispatch
+/*
+firstly, we ll set up a function in the context and dispatch some kind of action and pass that function 
+down to the provider 
+
+and we will look for the component that is looking for the functionality
+ex: increase, decrease, adding or removal of item etc\
+
+we will deal with that in the reducer
+*/
